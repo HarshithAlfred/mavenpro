@@ -1,0 +1,18 @@
+trigger:
+  - main  # or the branch you want to trigger the pipeline on
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean install'
+      options: '-Xmx3072m'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/*.xml'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.11'  # or 17 or whatever version you need
+      mavenVersionOption: 'Default'
+      mavenAuthenticateFeed: false
